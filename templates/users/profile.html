@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        div {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        input[type="button"] {
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 15px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="button"]:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div>
+
+        <h1>Account</h1>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <p class="error-message">{{ message }}</p>
+                {% elif message.tags == 'success' %}
+                    <p class="success-message">{{ message }}</p>
+                {% else %}
+                    <p>{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <input type="button" value="Upload" onclick="location.href='{% url 'upload_files' %}'" />
+        <input type="button" value="View" onclick="location.href='{% url 'view_files' %}'" />
+        <input type="button" value="Logout" onclick="location.href='{% url 'logout' %}'" />
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!-- view_files.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Files</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(2, 141, 248);
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Additional style for the user information */
+        .user-info {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Display user information -->
+    <div class="user-info">
+        <h1>View Files - {{ request.user.username }}</h1>
+    </div>
+
+    <!-- Back button -->
+    <a href="{% url 'account' %}" class="back-btn">Back to Profile</a>
+
+    <!-- Display files in a table -->
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Uploaded At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in user_files %}
+                {% if file.user == request.user %}
+                    <tr>
+                        <td><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></td>
+                        <td>{{ file.uploaded_at }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

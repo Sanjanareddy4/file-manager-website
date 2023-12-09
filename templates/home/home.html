@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Manager</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        div {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p.success-message {
+            color: green;
+        }
+
+        p.error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>FILE MANAGER</h1>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <p class="error-message">{{ message }}</p>
+                {% elif message.tags == 'success' %}
+                    <p class="success-message">{{ message }}</p>
+                {% else %}
+                    <p>{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if user.is_authenticated %}
+            <p>You are logged in as {{ user.username }}.</p>
+            <p><a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a></p>
+            <p><a href="{% url 'register' %}">Sign up</a></p>
+        {% endif %}
+    </div>
+</body>
+</html>
